@@ -1,32 +1,38 @@
-import React, { useCallback, useState } from 'react';
-
+import React, { useState, useCallback, useMemo } from 'react';
 import './App.css';
-import DemoOutput from './components/Demo/DemoOuput';
+import DemoList from './components/Demo/DemoList';
 import Button from './components/UI/Button';
 
 function App() {
-    const [showParagraph, setShowParagraph] = useState(false);
-    const [allowToggle, setAllowToggle] = useState(false);
+    const [listTitle, setListTitle] = useState('My List');
+    const [isDescending, setIsDescending] = useState(false);
 
-    console.log('APP RUNNING');
+    const changeTitleHandler = useCallback(() => {
+        setListTitle('Sorting number as change sorted button');
+    }, []);
 
-    const toggleParagraphHandler = useCallback(() => {
-        if (allowToggle) {
-            console.log('allowToggle', allowToggle)
-            setShowParagraph((prevShowParagraph) => !prevShowParagraph);
+    const toggleOrderHandler = useCallback(() => {
+        setIsDescending((prevState) => !prevState);
+    }, []);
+    const items = useMemo(() => [5, 3, 1, 10, 9], []);
+    const sortedItems = useMemo(() => {
+        const sorted = [...items];
+        if (isDescending) {
+            sorted.sort((a, b) => b - a);
+        } else {
+            sorted.sort((a, b) => a - b);
         }
-    }, [allowToggle]);
+        return sorted;
+    }, [isDescending]);
 
-    const allowToggleHandler = () => {
-        setAllowToggle(!allowToggle)
-    }
 
     return (
         <div className="app">
-            <h1>Hi there :)</h1>
-            <DemoOutput show={showParagraph} />
-            <Button onClick={allowToggleHandler}>Allow Toggle</Button><br /><br />
-            <Button onClick={toggleParagraphHandler}>Toggle Paragraph!</Button>
+            <DemoList title={listTitle} items={sortedItems} />
+            <Button onClick={changeTitleHandler}>Change List Title</Button><br /><br />
+            <Button onClick={toggleOrderHandler}>
+                {isDescending ? 'Sort Ascending' : 'Sort Descending'}
+            </Button>
         </div>
     );
 }
