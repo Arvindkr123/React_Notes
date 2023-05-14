@@ -6,20 +6,20 @@ const LocalStorage = () => {
     const onSubmitHandler = (e) => {
         e.preventDefault();
         let _myData = [];
-        let data = localStorage.getItem('userData');
+        let data = sessionStorage.getItem('userData');
         if (data && data !== null) {
             let jsonData = JSON.parse(data);
             _myData = jsonData;
         }
         _myData.push(({ listTitle: title }));
-        localStorage.setItem('userData', JSON.stringify(_myData));
+        sessionStorage.setItem('userData', JSON.stringify(_myData));
         setTitle('');
     }
 
     useEffect(() => { }, [title])
 
     const fetchData = () => {
-        let Data = localStorage.getItem('userData');
+        let Data = sessionStorage.getItem('userData');
         let jsonData = []
         if (Data && Data !== null) {
             jsonData = JSON.parse(Data);
@@ -33,7 +33,7 @@ const LocalStorage = () => {
         setTitle(e.target.value);
     }
     const clearDataHandler = () => {
-        localStorage.removeItem('userData'); 
+        sessionStorage.removeItem('userData'); 
     }
     return (
         <>
