@@ -1,32 +1,12 @@
-import "react-toastify/dist/ReactToastify.css";
-import LoginPage from "./Pages/LoginPage.jsx";
-import UsersList from "./Pages/UsersList.jsx";
-import HomePage from "./Pages/HomePage.jsx";
-import { ToastContainer } from "react-toastify";
-import Footer from "./Components/Footer.jsx";
-import { Route, Routes } from "react-router-dom";
-function App() {
+import React from 'react'
+import CurdComponetsMain from './components/CrudComponents/CurdComponetsMain'
+const App = () => {
     return (
-        <>
-            <ToastContainer
-                position="top-center"
-                autoClose={2000}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-            />
-            <Routes>
-                <Route path="/" element={<LoginPage />} />
-                <Route path="/profile" element={<HomePage />} />
-                <Route path="/users" element={<UsersList />} />
-            </Routes>
-            <Footer />
-        </>
-    );
+        <div className='mt-3'>
+            <h1 className='text-center'>Table</h1>
+            <CurdComponetsMain />
+        </div>
+    )
 }
 
-export default App;
+export default App
